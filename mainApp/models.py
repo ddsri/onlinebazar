@@ -42,7 +42,7 @@ class Seller(models.Model):
     state = models.CharField(
         max_length=50, default=None, null=True, blank=True)
     pic = models.FileField(
-        upload_to='images', default='defaultlogopic.png', null=True, blank=True)
+        upload_to='images', default='images/defaultlogopic.png', null=True, blank=True)
 
     def __str__(self):
         return str(self.id)+" "+self.username
@@ -92,7 +92,7 @@ class Buyer(models.Model):
     state = models.CharField(
         max_length=50, default=None, null=True, blank=True)
     pic = models.FileField(
-        upload_to="images", default='defaultlogopic.png', null=True, blank=True)
+        upload_to="images", default='images/defaultlogopic.png', null=True, blank=True)
 
     def __str__(self):
         return str(self.id)+" "+self.username

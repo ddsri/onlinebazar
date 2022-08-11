@@ -104,21 +104,21 @@ def signup(request):
                     username=u.username, password=password, email=u.email)
                 user.save()
                 u.save()
-                subject = 'Account Created successfully : Team OnlineBazar'
-                message = """Hi %s,
-                                Thanks for choosing OnlineBazar.com as your trusted shopping partner. We welcome you to India's biggest Online Shopping
-                                platform already trused by 2 million users.
+                # subject = 'Account Created successfully : Team OnlineBazar'
+                # message = """Hi %s,
+                #                 Thanks for choosing OnlineBazar.com as your trusted shopping partner. We welcome you to India's biggest Online Shopping
+                #                 platform already trused by 2 million users.
                             
-                            Start your journey by shopping with us on-
+                #             Start your journey by shopping with us on-
                             
-                                            http://localhost:8000
+                #                             http://localhost:8000
                             
-                            Thanks and Regards
-                            Desh Deepak Srivastava
-                            OnlineBazar.com""" %(u.name)
-                email_from = settings.EMAIL_HOST_USER
-                recipient_list = [u.email, ]
-                send_mail(subject, message, email_from, recipient_list)
+                #             Thanks and Regards
+                #             Desh Deepak Srivastava
+                #             OnlineBazar.com""" %(u.name)
+                # email_from = settings.EMAIL_HOST_USER
+                # recipient_list = [u.email, ]
+                # send_mail(subject, message, email_from, recipient_list)
                 return HttpResponseRedirect("/login/")
             except:
                 messages.error(
@@ -238,23 +238,23 @@ def addproduct(request):
         except:
             return HttpResponseRedirect("/profile/")
         p.save()
-        subject = 'Check our latest offers : Team OnlineBazar'
-        message = """Hi there,
-                        Thanks for choosing OnlineBazar.com as your trusted shopping partner. We welcome you to India's biggest Online Shopping
-                        platform already trused by 2 million users. 
+        # subject = 'Check our latest offers : Team OnlineBazar'
+        # message = """Hi there,
+        #                 Thanks for choosing OnlineBazar.com as your trusted shopping partner. We welcome you to India's biggest Online Shopping
+        #                 platform already trused by 2 million users. 
                         
                     
-                    Shop with us on-
+        #             Shop with us on-
                     
-                                    http://localhost:8000/single-product-page/%d
+        #                             http://localhost:8000/single-product-page/%d
                     
-                    Thanks and Regards
-                    Desh Deepak Srivastava
-                    OnlineBazar.com""" %(p.id)
-        email_from = settings.EMAIL_HOST_USER
-        subscribers = Newsletter.objects.all()
-        recipient_list = subscribers
-        send_mail(subject, message, email_from, recipient_list)
+        #             Thanks and Regards
+        #             Desh Deepak Srivastava
+        #             OnlineBazar.com""" %(p.id)
+        # email_from = settings.EMAIL_HOST_USER
+        # subscribers = Newsletter.objects.all()
+        # recipient_list = subscribers
+        # send_mail(subject, message, email_from, recipient_list)
         return HttpResponseRedirect("/profile/")
 
     return render(request, "addproduct.html", {"Maincategory": maincategory, "Subcategory": subcategory, "Brand": brand})
@@ -523,23 +523,23 @@ def checkoutpage(request):
 
 
 def confirmationpage(request):
-    subject = 'Happy Shopping : Team OnlineBazar'
-    buyer = Buyer.objects.get(username=request.user)
-    message = """Hi %s,
-                    Thanks for choosing OnlineBazar.com as your trusted shopping partner. We welcome you to India's biggest Online Shopping
-                    platform already trused by 2 million users.
-                    Your order is successfully placed.
+    # subject = 'Happy Shopping : Team OnlineBazar'
+    # buyer = Buyer.objects.get(username=request.user)
+    # message = """Hi %s,
+    #                 Thanks for choosing OnlineBazar.com as your trusted shopping partner. We welcome you to India's biggest Online Shopping
+    #                 platform already trused by 2 million users.
+    #                 Your order is successfully placed.
 
-                Start your journey by shopping with us on-
+    #             Start your journey by shopping with us on-
                 
-                                http://localhost:8000
+    #                             http://localhost:8000
                 
-                Thanks and Regards
-                Desh Deepak Srivastava
-                OnlineBazar.com""" %(buyer.name)
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [buyer.email, ]
-    send_mail(subject, message, email_from, recipient_list)
+    #             Thanks and Regards
+    #             Desh Deepak Srivastava
+    #             OnlineBazar.com""" %(buyer.name)
+    # email_from = settings.EMAIL_HOST_USER
+    # recipient_list = [buyer.email, ]
+    # send_mail(subject, message, email_from, recipient_list)
     return render(request, "confirmation.html")
 
 
@@ -587,54 +587,54 @@ def contactpage(request):
         c.phone = request.POST.get("phone")
         c.message = request.POST.get("message")
         c.save()
-        subject = 'Contact request submission : Team OnlineBazar'
-        message = """Thanks for sharing your request for contact.
-                     Our team is constantly trying to improve the user experience to serve you better.
-                     Our team will contact you soon on your contact information provided.
-                     Keep shopping with us.
-                     http://localhost:8000
+        # subject = 'Contact request submission : Team OnlineBazar'
+        # message = """Thanks for sharing your request for contact.
+        #              Our team is constantly trying to improve the user experience to serve you better.
+        #              Our team will contact you soon on your contact information provided.
+        #              Keep shopping with us.
+        #              http://localhost:8000
                      
-                     Thanks and Regards
-                     Desh Deepak Srivastava
-                     OnlineBazar.com"""
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [c.email, ]
-        send_mail(subject, message, email_from, recipient_list)
+        #              Thanks and Regards
+        #              Desh Deepak Srivastava
+        #              OnlineBazar.com"""
+        # email_from = settings.EMAIL_HOST_USER
+        # recipient_list = [c.email, ]
+        # send_mail(subject, message, email_from, recipient_list)
 
-        messages.success(
-            request, "Your request has been submitted. We will get in touch with you very soon !!STAY SHOPPING!!")
+        # messages.success(
+        #     request, "Your request has been submitted. We will get in touch with you very soon !!STAY SHOPPING!!")
 
     return render(request, "contact.html")
 
 
 def forgetusername(request):
-    if(request.method == "POST"):
-        username = request.POST.get("username")
-        user = User.objects.get(username=username)
-        if(user is not None):
-            try:
-                user = Buyer.objects.get(username=username)
-            except:
-                user = Seller.objects.get(username=username)
-            num = randint(100000, 999999)
-            request.session['otp'] = num
-            request.session['user'] = username
-            subject = 'Reset password OTP generated: Team OnlineBazar'
-            message = """Thanks for choosing OnlineBazar.
-                        Your One Time Password is generated and is valid only for 30 minutes.
-                                        OTP : %d
-                        http://localhost:8000
+    # if(request.method == "POST"):
+    #     username = request.POST.get("username")
+    #     user = User.objects.get(username=username)
+    #     if(user is not None):
+    #         try:
+    #             user = Buyer.objects.get(username=username)
+    #         except:
+    #             user = Seller.objects.get(username=username)
+    #         num = randint(100000, 999999)
+    #         request.session['otp'] = num
+    #         request.session['user'] = username
+    #         subject = 'Reset password OTP generated: Team OnlineBazar'
+    #         message = """Thanks for choosing OnlineBazar.
+    #                     Your One Time Password is generated and is valid only for 30 minutes.
+    #                                     OTP : %d
+    #                     http://localhost:8000
                         
-                        Thanks and Regards
-                        Desh Deepak Srivastava
-                        OnlineBazar.com""" % num
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [user.email, ]
-            send_mail(subject, message, email_from, recipient_list)
-            return HttpResponseRedirect("/forget-otp/")
+    #                     Thanks and Regards
+    #                     Desh Deepak Srivastava
+    #                     OnlineBazar.com""" % num
+    #         email_from = settings.EMAIL_HOST_USER
+    #         recipient_list = [user.email, ]
+    #         send_mail(subject, message, email_from, recipient_list)
+    #         return HttpResponseRedirect("/forget-otp/")
 
-        else:
-            messages.error(request, "Username not found")
+    #     else:
+    #         messages.error(request, "Username not found")
     return render(request, "forget-username.html")
 
 

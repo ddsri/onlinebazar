@@ -12,16 +12,28 @@
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{Product.pic1.url}}" height="500" class="d-block w-100">
+                        <img src="{{Product.pic1.url}}" height="500" class="d-block w-100 rounded">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{Product.pic2.url}}" height="500" class="d-block w-100">
+                        {% if Product.pic2 %}
+                        <img src="{{Product.pic2.url}}" height="500" class="d-block w-100 rounded">
+                        {% else %}
+                        <img src="{% static 'images/nopic.jpg' %}" height="500" class="d-block w-100 rounded">
+                        {% endif %}
                     </div>
                     <div class="carousel-item">
-                        <img src="{{Product.pic3.url}}" height="500" class="d-block w-100">
+                        {% if Product.pic3 %}
+                        <img src="{{Product.pic3.url}}" height="500" class="d-block w-100 rounded">
+                        {% else %}
+                        <img src="{% static 'images/nopic.jpg' %}" height="500" class="d-block w-100 rounded">
+                        {% endif %}
                     </div>
-                    <div class="carousel-item">
-                        <img src="{{Product.pic4.url}}" height="500" class="d-block w-100">
+                    <div>
+                        {% if Product.pic4 %}
+                        <img src="{{Product.pic4.url}}" height="500" class="d-block w-100 rounded">
+                        {% else %}
+                        <img src="{% static 'images/nopic.jpg' %}" height="500" class="d-block w-100 rounded">
+                        {% endif %}
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
@@ -36,10 +48,32 @@
                 </button>
             </div>
             <div class="mt-2 mb-2 d-flex justify-content-between">
-                <img src="{{Product.pic1.url}}" height='80px' width='15%'>
-                <img src="{{Product.pic2.url}}" height='80px' width='15%'>
-                <img src="{{Product.pic3.url}}" height='80px' width='15%'>
-                <img src="{{Product.pic4.url}}" height='80px' width='15%'>
+                <a href="{{Product.pic1.url}}" target="_blank"><img src="{{Product.pic1.url}}"
+                        class="background rounded border" height='80px' width='100%'></a>
+
+                {% if Product.pic2 %}
+                <a href="{{Product.pic2.url}}" target="_blank"><img src="{{Product.pic2.url}}"
+                        class="background rounded border" height='80px' width='100%'></a>
+                {% else %}
+                <a href=""><img src="{% static 'images/nopic.jpg' %}" class="background rounded border" height='80px'
+                        width='100%'></a>
+                {% endif %}
+
+                {% if Product.pic3 %}
+                <a href="{{Product.pic3.url}}" target="_blank"><img src="{{Product.pic3.url}}"
+                        class="background rounded border" height='80px' width='100%'></a>
+                {% else %}
+                <a href=""><img src="{% static 'images/nopic.jpg' %}" class="background rounded border" height='80px'
+                        width='100%'></a>
+                {% endif %}
+
+                {% if Product.pic4 %}
+                <a href="{{Product.pic4.url}}" target="_blank"><img src="{{Product.pic4.url}}"
+                        class="background rounded border" height='80px' width='100%'></a>
+                {% else %}
+                <a href=""><img src="{% static 'images/nopic.jpg' %}" class="background rounded border" height='80px'
+                        width='100%'></a>
+                {% endif %}
             </div>
         </div>
 
@@ -101,9 +135,11 @@
                     <tr>
                         <input type="hidden" name="pid" value="{{Product.id}}">
                         {% if request|Stock:Product.stock %}
-                        <th colspan="2"><button type="submit" class="btn background text-light w-100">Add to cart</button></th>
+                        <th colspan="2"><button type="submit" class="btn background text-light w-100">Add to
+                                cart</button></th>
                         {% else %}
-                        <th colspan="2"><button type="submit" disabled class="btn background text-light w-100">Add to cart</button></th>
+                        <th colspan="2"><button type="submit" disabled class="btn background text-light w-100">Add to
+                                cart</button></th>
                         {% endif %}
                     </tr>
                 </form>
