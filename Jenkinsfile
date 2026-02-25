@@ -1,13 +1,17 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'docker:29.2.1-windowsservercore'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
     environment {
         IMAGE_NAME = "ddsri/onlinebazar"
         REGISTRY_CREDENTIALS = "dockerhub-creds"
-        KUBE_CONFIG_CRED = "kubeconfig"
-        K8S_NAMESPACE = "default"
-        DEPLOYMENT_NAME = "ob"
-        CONTAINER_NAME = "ob-webapp"
+        KUBE_CONFIG_CRED = "ob-kubeconfig"
+        K8S_NAMESPACE = "webapp-ns"
+        DEPLOYMENT_NAME = "deployment-ob-webapp"
+        CONTAINER_NAME = "container-ob-webapp"
     }
 
     stages {
