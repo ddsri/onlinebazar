@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'docker:29.2.1-windowsservercore'
+            image 'docker:29.2.1'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
