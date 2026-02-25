@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     IMAGE_TAG = "${BUILD_NUMBER}"
-                    sh """
+                    bat """
                         docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
                         docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
                     """
@@ -41,7 +41,7 @@ pipeline {
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh """
+                    bat """
                         echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                     """
                 }
@@ -50,7 +50,7 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                sh """
+                bat """
                     docker push ${IMAGE_NAME}:${IMAGE_TAG}
                     docker push ${IMAGE_NAME}:latest
                 """
@@ -60,7 +60,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 withCredentials([file(credentialsId: "${KUBE_CONFIG_CRED}", variable: 'KUBECONFIG')]) {
-                    sh """
+                    bat """
                         export KUBECONFIG=$KUBECONFIG
 
                         kubectl set image deployment/${DEPLOYMENT_NAME} \
@@ -82,7 +82,7 @@ pipeline {
             echo "❌ Pipeline Failed"
         }
         always {
-            sh "docker logout || true"
+            bat "docker logout || true"
         }
     }
 }
